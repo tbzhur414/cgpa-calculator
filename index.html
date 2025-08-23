@@ -248,7 +248,7 @@
             font-size: 14px;
         }
 
-        .form-group input, .form-group select {
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -258,7 +258,12 @@
             min-height: 48px;
         }
 
-        .form-group input:focus, .form-group select:focus {
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
             outline: none;
             border-color: var(--secondary-green);
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
@@ -451,6 +456,12 @@
             text-align: center;
         }
 
+        .developer-profile p {
+            text-align: justify;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
         .developer-profile img {
             width: 150px;
             height: 150px;
@@ -475,6 +486,7 @@
             display: flex;
             justify-content: center;
             gap: 15px;
+            margin-bottom: 20px;
         }
 
         .social-links a {
@@ -546,7 +558,7 @@
                 font-size: 13px;
             }
 
-            .form-group input, .form-group select, .form-group .auto-name {
+            .form-group input, .form-group select, .form-group textarea, .form-group .auto-name {
                 font-size: 14px;
                 padding: 10px;
                 min-height: 44px;
@@ -565,6 +577,11 @@
             .developer-profile img {
                 width: 120px;
                 height: 120px;
+            }
+
+            .developer-profile p {
+                font-size: 14px;
+                padding: 0 10px;
             }
         }
 
@@ -672,13 +689,13 @@
                                     <select class="grade">
                                         <option value="">Select Grade</option>
                                         <option value="4.0">A+ (84.5% & Above)</option>
-                                        <option value="4.0">A (79.5-84.5%)</option>
-                                        <option value="3.7">B+ (74.5-79.5%)</option>
-                                        <option value="3.3">B (69.5-74.5%)</option>
-                                        <option value="3.0">B- (64.5-69.5%)</option>
-                                        <option value="2.7">C+ (59.5-64.5%)</option>
-                                        <option value="2.3">C (54.5-59.5%)</option>
-                                        <option value="2.0">D (49.5-54.5%)</option>
+                                        <option value="3.7">A (79.5-84.5%)</option>
+                                        <option value="3.4">B+ (74.5-79.5%)</option>
+                                        <option value="3.0">B (69.5-74.5%)</option>
+                                        <option value="2.5">B- (64.5-69.5%)</option>
+                                        <option value="2.0">C+ (59.5-64.5%)</option>
+                                        <option value="1.5">C (54.5-59.5%)</option>
+                                        <option value="1.0">D (49.5-54.5%)</option>
                                         <option value="0.0">F (Below 49.5%)</option>
                                     </select>
                                 </div>
@@ -843,22 +860,38 @@
             <div id="developer" class="page">
                 <h2>About the Developer</h2>
                 <div class="developer-profile">
-                    <img src="Images/DEVELOPER.png" alt="Hur Abbas Rana"> <!-- Replace with your image path -->
+                    <img src="Images/DEVELOPER.png" alt="Hur Abbas Rana">
                     <h3>Hur Abbas Rana</h3>
-                    <p>Graduate from University of Narowal in BS Computer Science</p>
+                    <p><strong>Graduate from University of Narowal in BS Computer Science</strong></p>
                     <p>A dynamic professional at the intersection of web development, global sales, and digital strategy, I bring hands-on expertise in crafting responsive, SEO-optimized websites using HTML, CSS, JavaScript, and MySQL — all backed by a strong academic foundation in Computer Science from the University of Narowal.</p>
-
-<p>🌱 Currently serving as a Sales Coordinator and Business Assistant at Alshafi Group Global, a leading name in the fertilizer sector, I coordinate sales operations and support strategic business initiatives to drive growth and efficiency. My experience also includes key roles as Import-Export Sales Manager at Agriculture Wheel Impex International Pvt. Ltd. and Sales Manager at TBZ Group of Fertilizers, where I managed international trade, client relations, and market expansion.</p>
-
-<p>📈 Beyond sales, I lead digital marketing efforts as a Social Media Manager and oversee compliance and reporting as a Tax Assistant, blending technical and business skills to create measurable impact.</p>
-
-<p>💡 Passionate about technology, innovation, and sustainable growth, I thrive on turning ideas into action — leading with vision, collaboration, and a commitment to excellence in every project I undertake.</p>
+                    <p>📊 I possess strong skills in data analysis, leveraging tools like Power BI to create interactive dashboards that provide actionable insights into sales performance, enabling data-driven decision-making and business growth.</p>
+                    <p>🌱 Currently serving as a Sales Coordinator and Business Assistant at Alshafi Group Global, a leading name in the fertilizer sector, I coordinate sales operations and support strategic business initiatives to drive growth and efficiency. My experience also includes key roles as Import-Export Sales Manager at Agriculture Wheel Impex International Pvt. Ltd. and Sales Manager at TBZ Group of Fertilizers, where I managed international trade, client relations, and market expansion.</p>
+                    <p>📈 Beyond sales, I lead digital marketing efforts as a Social Media Manager and oversee compliance and reporting as a Tax Assistant, blending technical and business skills to create measurable impact.</p>
+                    <p>💡 Passionate about technology, innovation, and sustainable growth, I thrive on turning ideas into action — leading with vision, collaboration, and a commitment to excellence in every project I undertake.</p>
                     <div class="social-links">
-                        <a href="https://github.com/tbzhur414/" target="_blank"><i class="fab fa-github"></i></a> <!-- Replace with your GitHub -->
-                        <a href="https://www.linkedin.com/in/hur-abbas-rana-42b866292" target="_blank"><i class="fab fa-linkedin"></i></a> <!-- Replace with your LinkedIn -->
-                        <a href="https://x.com/HurAbbas_414" target="_blank"><i class="fab fa-twitter"></i></a> <!-- Replace with your Twitter/X -->
-                        <a href="https://www.instagram.com/hurabbas414/" target="_blank"><i class="fab fa-instagram"></i></a> <!-- Replace with your Instagram -->
-                        <!-- Add more social media links as needed -->
+                        <a href="https://github.com/tbzhur414/" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/hur-abbas-rana-42b866292" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://x.com/HurAbbas_414" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/hurabbas414/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+
+                    <div class="strategy-section">
+                        <h4>Leave a Review</h4>
+                        <form action="https://formspree.io/f/mpwlvnew" method="POST">
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" name="name" required placeholder="Enter your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Your Email</label>
+                                <input type="email" name="email" required placeholder="Enter your email">
+                            </div>
+                            <div class="form-group">
+                                <label>Your Review</label>
+                                <textarea name="review" rows="5" required placeholder="Share your feedback about the CGPA Calculator"></textarea>
+                            </div>
+                            <button type="submit" class="btn">Submit Review</button>
+                        </form>
                     </div>
                 </div>
             </div>
