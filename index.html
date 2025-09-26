@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UON CGPA Calculator</title>
+    <title>UON CGPA CALCULATOR</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,6 +14,7 @@
             --text-light: #666;
             --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8fff8 100%);
             --accent-gradient: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            --blue: #2196f3;
         }
 
         * {
@@ -35,19 +36,33 @@
             padding: 0 15px;
         }
 
-        /* Header */
         header {
             background: var(--accent-gradient);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            position: relative;
         }
 
         .header-content {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             flex-wrap: wrap;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+            display: none;
+        }
+
+        .back-btn.visible {
+            display: block;
         }
 
         .logo {
@@ -68,67 +83,56 @@
         .logo-text h1 {
             font-size: 24px;
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .logo-text p {
             font-size: 14px;
             opacity: 0.9;
+            text-transform: uppercase;
         }
 
-        /* Navigation */
         nav {
             background: white;
             padding: 10px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        .nav-buttons {
+        .nav-icons {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .nav-btn {
-            padding: 12px 24px;
-            border: 2px solid var(--secondary-green);
-            background: white;
+        .nav-icon {
+            background: none;
+            border: none;
             color: var(--primary-green);
-            border-radius: 25px;
+            font-size: 24px;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .nav-icon span {
+            font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-            min-height: 48px;
+            color: var(--text-dark);
         }
 
-        .nav-btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--secondary-green);
-            transition: left 0.3s ease;
-            z-index: -1;
+        .nav-icon.active {
+            color: var(--secondary-green);
+            transform: scale(1.2);
         }
 
-        .nav-btn:hover::after, .nav-btn.active::after {
-            left: 0;
+        .nav-icon:hover {
+            color: var(--secondary-green);
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
-        }
-
-        /* Main Content */
         .main-content {
             padding: 20px 0;
             animation: fadeIn 0.5s ease-in;
@@ -159,6 +163,7 @@
             text-align: center;
             font-size: 26px;
             position: relative;
+            text-transform: uppercase;
         }
 
         .page h2::after {
@@ -173,7 +178,6 @@
             border-radius: 2px;
         }
 
-        /* Home Page */
         .welcome-section {
             text-align: center;
             padding: 30px 0;
@@ -183,6 +187,7 @@
             color: var(--primary-green);
             margin-bottom: 15px;
             font-size: 24px;
+            text-transform: uppercase;
         }
 
         .welcome-section p {
@@ -235,49 +240,46 @@
             transform: rotate(360deg);
         }
 
-        /* Form Styles */
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 0;
+            flex: 1;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--primary-green);
-            font-weight: 600;
-            font-size: 14px;
+            display: none;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group select, .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            min-height: 48px;
+            border: none;
+            border-bottom: 1px solid var(--blue);
+            background: transparent;
+            font-size: 10px;
+            color: var(--blue);
+            appearance: none;
+            background-image: linear-gradient(45deg, transparent 50%, var(--blue) 50%), linear-gradient(135deg, var(--blue) 50%, transparent 50%);
+            background-position: calc(100% - 15px) calc(1em + 2px), calc(100% - 10px) calc(1em + 2px);
+            background-size: 5px 5px, 5px 5px;
+            background-repeat: no-repeat;
+            padding: 0 0 5px 0;
         }
 
-        .form-group textarea {
-            min-height: 100px;
-            resize: vertical;
+        .form-group select option, .form-group input {
+            color: var(--text-dark);
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group select:focus, .form-group input:focus {
             outline: none;
-            border-color: var(--secondary-green);
-            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
         }
 
-        .form-group .auto-name {
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            background: #f8f8f8;
+        .auto-name {
+            border: none;
+            background: transparent;
+            font-size: 10px;
+            border-bottom: 1px solid var(--blue);
+            padding: 0 0 5px 0;
             display: block;
-            min-height: 48px;
-            line-height: 24px;
+            text-transform: uppercase;
         }
 
         .btn {
@@ -311,25 +313,22 @@
             color: white;
         }
 
-        /* Course Input */
-        .course-input {
-            background: #f8fff8;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #e0e0e0;
-            transition: box-shadow 0.3s ease;
-        }
-
-        .course-input:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-
-        .course-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr auto;
+        .course-row, .semester-row {
+            display: flex;
+            align-items: flex-end;
             gap: 15px;
-            align-items: end;
+            margin-bottom: 10px;
+        }
+
+        .semester-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+            margin-bottom: 10px;
+            font-size: 10px;
+            color: var(--primary-green);
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
         .remove-btn {
@@ -352,7 +351,6 @@
             transform: scale(1.1);
         }
 
-        /* Results */
         .result {
             background: linear-gradient(135deg, var(--light-green) 0%, #f1f8e9 100%);
             padding: 20px;
@@ -372,6 +370,7 @@
             color: var(--primary-green);
             font-size: 24px;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .result .score {
@@ -382,7 +381,6 @@
             text-shadow: 0 2px 5px rgba(46, 125, 50, 0.2);
         }
 
-        /* Grading Chart */
         .grading-table {
             width: 100%;
             border-collapse: collapse;
@@ -400,6 +398,7 @@
             text-align: left;
             font-weight: 600;
             font-size: 14px;
+            text-transform: uppercase;
         }
 
         .grading-table td {
@@ -413,7 +412,6 @@
             transition: background 0.2s ease;
         }
 
-        /* Strategy Section */
         .strategy-section {
             background: linear-gradient(135deg, var(--light-green) 0%, #f1f8e9 100%);
             padding: 20px;
@@ -426,6 +424,7 @@
             color: var(--primary-green);
             margin-bottom: 15px;
             font-size: 20px;
+            text-transform: uppercase;
         }
 
         .strategy-section ul {
@@ -451,7 +450,6 @@
             top: 8px;
         }
 
-        /* Developer Page */
         .developer-profile {
             text-align: center;
         }
@@ -475,6 +473,7 @@
             color: var(--primary-green);
             font-size: 24px;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .developer-profile p {
@@ -499,7 +498,6 @@
             color: var(--secondary-green);
         }
 
-        /* Responsive Design */
         @media (max-width: 600px) {
             .header-content {
                 text-align: center;
@@ -519,21 +517,31 @@
                 font-size: 12px;
             }
 
-            .nav-buttons {
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
+            .nav-icons {
+                gap: 15px;
             }
 
-            .nav-btn {
-                width: 100%;
-                font-size: 13px;
-                padding: 10px;
+            .nav-icon {
+                font-size: 20px;
+                padding: 8px;
             }
 
-            .course-row {
-                grid-template-columns: 1fr;
-                gap: 12px;
+            .nav-icon span {
+                font-size: 10px;
+            }
+
+            .course-row, .semester-row {
+                gap: 5px;
+            }
+
+            .form-group select, .form-group input, .auto-name {
+                font-size: 10px;
+            }
+
+            .remove-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
             }
 
             .feature-grid {
@@ -554,26 +562,6 @@
                 font-size: 14px;
             }
 
-            .form-group label {
-                font-size: 13px;
-            }
-
-            .form-group input, .form-group select, .form-group textarea, .form-group .auto-name {
-                font-size: 14px;
-                padding: 10px;
-                min-height: 44px;
-            }
-
-            .remove-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-            }
-
-            .result .score {
-                font-size: 40px;
-            }
-
             .developer-profile img {
                 width: 120px;
                 height: 120px;
@@ -592,17 +580,60 @@
             font-size: 14px;
             display: none;
         }
+
+        /* Additional style for the review box */
+        .review-box {
+            background: white;
+            border: 2px solid var(--secondary-green);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .review-box .form-group {
+            margin-bottom: 15px;
+        }
+
+        .review-box .form-group label {
+            display: block;
+            color: var(--primary-green);
+            font-size: 14px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .review-box .form-group input,
+        .review-box .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--blue);
+            border-radius: 5px;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+
+        .review-box .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .review-box .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="header-content">
+                <button class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
                 <div class="logo">
-                    <img src="Images/LOGO-1.png" alt="UON Logo">
+                    <img src="Images/LOGO-1.PNG" alt="UON LOGO">
                     <div class="logo-text">
-                        <h1>CGPA Calculator</h1>
-                        <p>University of Narowal</p>
+                        <h1>CGPA CALCULATOR</h1>
+                        <p>UNIVERSITY OF NAROWAL</p>
                     </div>
                 </div>
             </div>
@@ -611,45 +642,45 @@
 
     <nav>
         <div class="container">
-            <div class="nav-buttons">
-                <button class="nav-btn active" onclick="showPage('home')">Home</button>
-                <button class="nav-btn" onclick="showPage('gpa')">Calculate GPA</button>
-                <button class="nav-btn" onclick="showPage('cgpa')">Calculate CGPA</button>
-                <button class="nav-btn" onclick="showPage('grading')">Grading Chart</button>
-                <button class="nav-btn" onclick="showPage('developer')">Developer</button>
+            <div class="nav-icons">
+                <button class="nav-icon active" onclick="showPage('home')"><i class="fas fa-home"></i><span>HOME</span></button>
+                <button class="nav-icon" onclick="showPage('gpa')"><i class="fas fa-calculator"></i><span>GPA</span></button>
+                <button class="nav-icon" onclick="showPage('cgpa')"><i class="fas fa-chart-line"></i><span>CGPA</span></button>
+                <button class="nav-icon" onclick="showPage('grading')"><i class="fas fa-table"></i><span>CHART</span></button>
+                <button class="nav-icon" onclick="showPage('developer')"><i class="fas fa-user"></i><span>PROFILE</span></button>
             </div>
         </div>
     </nav>
 
     <div class="container">
         <div class="main-content">
-            <!-- Home Page -->
+            <!-- HOME PAGE -->
             <div id="home" class="page active">
                 <div class="welcome-section">
-                    <h3>Welcome to UON CGPA Calculator</h3>
+                    <h3>WELCOME TO UON CGPA CALCULATOR</h3>
                     <p>Calculate your GPA and CGPA easily with our comprehensive calculator designed specifically for University of Narowal students. Track your academic progress and plan your studies effectively.</p>
                 </div>
 
                 <div class="feature-grid">
                     <div class="feature-card" onclick="showPage('gpa')">
                         <div class="feature-icon"><i class="fas fa-calculator"></i></div>
-                        <h4>Calculate GPA</h4>
-                        <p>Calculate your Grade Point Average for a single semester by entering your course grades and credit hours.</p>
+                        <h4>CALCULATE GPA</h4>
+                        <p>Calculate your grade point average for a single semester by entering your course grades and credit hours.</p>
                     </div>
                     <div class="feature-card" onclick="showPage('cgpa')">
                         <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
-                        <h4>Calculate CGPA</h4>
-                        <p>Calculate your Cumulative Grade Point Average across multiple semesters to track your overall academic performance.</p>
+                        <h4>CALCULATE CGPA</h4>
+                        <p>Calculate your cumulative grade point average across multiple semesters to track your overall academic performance.</p>
                     </div>
                     <div class="feature-card" onclick="showPage('grading')">
                         <div class="feature-icon"><i class="fas fa-table"></i></div>
-                        <h4>Grading System</h4>
+                        <h4>GRADING SYSTEM</h4>
                         <p>View the complete grading chart and understand the grading system used at University of Narowal.</p>
                     </div>
                 </div>
 
                 <div class="strategy-section">
-                    <h4>Academic Success Strategy</h4>
+                    <h4>ACADEMIC SUCCESS STRATEGY</h4>
                     <ul>
                         <li>Maintain consistent study habits throughout the semester</li>
                         <li>Focus on understanding concepts rather than just memorization</li>
@@ -661,191 +692,186 @@
                 </div>
             </div>
 
-            <!-- GPA Calculator -->
+            <!-- GPA CALCULATOR -->
             <div id="gpa" class="page">
-                <h2>Calculate GPA</h2>
+                <h2>CALCULATE GPA</h2>
                 <form id="gpaForm">
                     <div id="courses-container">
-                        <div class="course-input">
-                            <div class="course-row">
-                                <div class="form-group">
-                                    <label>Course Name</label>
-                                    <span class="auto-name">Course 1</span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Credit Hours</label>
-                                    <select class="credits">
-                                        <option value="">Select Credit Hours</option>
-                                        <option value="1">1 Credit Hour</option>
-                                        <option value="2">2 Credit Hours</option>
-                                        <option value="3">3 Credit Hours</option>
-                                        <option value="4">4 Credit Hours</option>
-                                        <option value="5">5 Credit Hours</option>
-                                        <option value="6">6 Credit Hours</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Grade</label>
-                                    <select class="grade">
-                                        <option value="">Select Grade</option>
-                                        <option value="4.0">A+ (84.5% & Above)</option>
-                                        <option value="3.7">A (79.5-84.5%)</option>
-                                        <option value="3.4">B+ (74.5-79.5%)</option>
-                                        <option value="3.0">B (69.5-74.5%)</option>
-                                        <option value="2.5">B- (64.5-69.5%)</option>
-                                        <option value="2.0">C+ (59.5-64.5%)</option>
-                                        <option value="1.5">C (54.5-59.5%)</option>
-                                        <option value="1.0">D (49.5-54.5%)</option>
-                                        <option value="0.0">F (Below 49.5%)</option>
-                                    </select>
-                                </div>
-                                <button type="button" class="remove-btn" onclick="removeCourse(this)">×</button>
+                        <div class="course-row">
+                            <div class="form-group">
+                                <span class="auto-name">COURSE 1</span>
                             </div>
+                            <div class="form-group">
+                                <select class="credits">
+                                    <option value="" disabled selected>CREDIT HOURS</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select class="grade">
+                                    <option value="" disabled selected>GRADE</option>
+                                    <option value="4.0">A+</option>
+                                    <option value="3.7">A</option>
+                                    <option value="3.4">B+</option>
+                                    <option value="3.0">B</option>
+                                    <option value="2.5">B-</option>
+                                    <option value="2.0">C+</option>
+                                    <option value="1.5">C</option>
+                                    <option value="1.0">D</option>
+                                    <option value="0.0">F</option>
+                                </select>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="removeCourse(this)">×</button>
                         </div>
                     </div>
                     
                     <div style="text-align: center; margin: 20px 0;">
-                        <button type="button" class="btn btn-secondary" onclick="addCourse()">Add Course</button>
-                        <button type="button" class="btn" onclick="calculateGPA()">Calculate GPA</button>
+                        <button type="button" class="btn btn-secondary" onclick="addCourse()">ADD COURSE</button>
+                        <button type="button" class="btn" onclick="calculateGPA()">CALCULATE GPA</button>
                     </div>
                 </form>
                 
                 <div id="gpaResult" class="result" style="display: none;">
-                    <h3>Your GPA Result</h3>
+                    <h3>YOUR GPA RESULT</h3>
                     <div class="score" id="gpaScore">0.00</div>
                     <p id="gpaGrade"></p>
                 </div>
-                <p id="gpaError" class="error-message">Invalid data entered. Please check your inputs.</p>
+                <p id="gpaError" class="error-message">INVALID DATA ENTERED. PLEASE CHECK YOUR INPUTS.</p>
             </div>
 
-            <!-- CGPA Calculator -->
+            <!-- CGPA CALCULATOR -->
             <div id="cgpa" class="page">
-                <h2>Calculate CGPA</h2>
+                <h2>CALCULATE CGPA</h2>
                 <form id="cgpaForm">
+                    <div class="semester-header">
+                        <span>SEMESTER</span>
+                        <span>CREDIT HOURS</span>
+                        <span>GPA OBTAINED</span>
+                    </div>
                     <div id="semesters-container">
-                        <div class="course-input">
-                            <div class="course-row">
-                                <div class="form-group">
-                                    <label>Semester</label>
-                                    <span class="auto-name">1st Semester</span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Total Credit Hours</label>
-                                    <select class="credits">
-                                        <option value="">Select Credit Hours</option>
-                                        <option value="12">12 Credit Hours</option>
-                                        <option value="13">13 Credit Hours</option>
-                                        <option value="14">14 Credit Hours</option>
-                                        <option value="15">15 Credit Hours</option>
-                                        <option value="16">16 Credit Hours</option>
-                                        <option value="17">17 Credit Hours</option>
-                                        <option value="18">18 Credit Hours</option>
-                                        <option value="19">19 Credit Hours</option>
-                                        <option value="20">20 Credit Hours</option>
-                                        <option value="21">21 Credit Hours</option>
-                                        <option value="22">22 Credit Hours</option>
-                                        <option value="23">23 Credit Hours</option>
-                                        <option value="24">24 Credit Hours</option>
-                                        <option value="25">25 Credit Hours</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>GPA Obtained</label>
-                                    <input type="number" class="gpa-obtained" step="0.01" min="0" max="4" placeholder="e.g., 3.50">
-                                </div>
-                                <button type="button" class="remove-btn" onclick="removeSemester(this)">×</button>
+                        <div class="semester-row">
+                            <div class="form-group">
+                                <span class="auto-name">SEMESTER 1</span>
                             </div>
+                            <div class="form-group">
+                                <select class="credits">
+                                    <option value="" disabled selected>CREDIT HOURS</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="gpa-obtained" step="0.1" min="0" max="4" placeholder="GPA OBTAINED">
+                            </div>
+                            <button type="button" class="remove-btn" onclick="removeSemester(this)">×</button>
                         </div>
                     </div>
                     
                     <div style="text-align: center; margin: 20px 0;">
-                        <button type="button" class="btn btn-secondary" onclick="addSemester()">Add Semester</button>
-                        <button type="button" class="btn" onclick="calculateCGPA()">Calculate CGPA</button>
+                        <button type="button" class="btn btn-secondary" onclick="addSemester()">ADD SEMESTER</button>
+                        <button type="button" class="btn" onclick="calculateCGPA()">CALCULATE CGPA</button>
                     </div>
                 </form>
                 
                 <div id="cgpaResult" class="result" style="display: none;">
-                    <h3>Your CGPA Result</h3>
+                    <h3>YOUR CGPA RESULT</h3>
                     <div class="score" id="cgpaScore">0.00</div>
                     <p id="cgpaGrade"></p>
-                    <p><strong>Total Credit Hours:</strong> <span id="totalCredits">0</span></p>
+                    <p><strong>TOTAL CREDIT HOURS:</strong> <span id="totalCredits">0</span></p>
                 </div>
-                <p id="cgpaError" class="error-message">Invalid data entered. Please check your inputs (GPA must be between 0.00 and 4.00).</p>
+                <p id="cgpaError" class="error-message">INVALID DATA ENTERED. PLEASE CHECK YOUR INPUTS (GPA MUST BE BETWEEN 0.00 AND 4.00).</p>
             </div>
 
-            <!-- Grading Chart -->
+            <!-- GRADING CHART -->
             <div id="grading" class="page">
-                <h2>UON Grading System</h2>
+                <h2>GRADING SYSTEM</h2>
                 
                 <table class="grading-table">
                     <thead>
                         <tr>
-                            <th>Letter Grade</th>
-                            <th>Grade Points</th>
-                            <th>Percentage Range</th>
-                            <th>Performance Level</th>
+                            <th>LETTER GRADE</th>
+                            <th>GRADE POINTS</th>
+                            <th>PERCENTAGE RANGE</th>
+                            <th>PERFORMANCE LEVEL</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><strong>A+</strong></td>
                             <td>4.00</td>
-                            <td>84.5% & Above</td>
-                            <td>Exceptional</td>
+                            <td>84.5% & ABOVE</td>
+                            <td>EXCEPTIONAL</td>
                         </tr>
                         <tr>
                             <td><strong>A</strong></td>
                             <td>3.70</td>
                             <td>79.5-84.5%</td>
-                            <td>Excellent</td>
+                            <td>EXCELLENT</td>
                         </tr>
                         <tr>
                             <td><strong>B+</strong></td>
                             <td>3.40</td>
                             <td>74.5-79.5%</td>
-                            <td>Very Good</td>
+                            <td>VERY GOOD</td>
                         </tr>
                         <tr>
                             <td><strong>B</strong></td>
                             <td>3.00</td>
                             <td>69.5-74.5%</td>
-                            <td>Good</td>
+                            <td>GOOD</td>
                         </tr>
                         <tr>
                             <td><strong>B-</strong></td>
                             <td>2.50</td>
                             <td>64.5-69.5%</td>
-                            <td>Above Average</td>
+                            <td>ABOVE AVERAGE</td>
                         </tr>
                         <tr>
                             <td><strong>C+</strong></td>
                             <td>2.00</td>
                             <td>59.5-64.5%</td>
-                            <td>Average Plus</td>
+                            <td>AVERAGE PLUS</td>
                         </tr>
                         <tr>
                             <td><strong>C</strong></td>
                             <td>1.50</td>
                             <td>54.5-59.5%</td>
-                            <td>Average</td>
+                            <td>AVERAGE</td>
                         </tr>
                         <tr>
                             <td><strong>D</strong></td>
                             <td>1.00</td>
                             <td>49.5-54.5%</td>
-                            <td>Below Average</td>
+                            <td>BELOW AVERAGE</td>
                         </tr>
                         <tr>
                             <td><strong>F</strong></td>
                             <td>0.00</td>
-                            <td>Below 49.5%</td>
-                            <td>Fail</td>
+                            <td>BELOW 49.5%</td>
+                            <td>FAIL</td>
                         </tr>
                     </tbody>
                 </table>
 
                 <div class="strategy-section">
-                    <h4>UON Academic Standards</h4>
+                    <h4>UON ACADEMIC STANDARDS</h4>
                     <ul>
                         <li>Minimum CGPA of 2.00 required for degree completion</li>
                         <li>CGPA of 3.50 or above qualifies for Dean's List</li>
@@ -856,12 +882,12 @@
                 </div>
             </div>
 
-            <!-- Developer Page -->
+            <!-- DEVELOPER PAGE -->
             <div id="developer" class="page">
-                <h2>About the Developer</h2>
+                <h2>ABOUT THE DEVELOPER</h2>
                 <div class="developer-profile">
-                    <img src="Images/DEVELOPER.png" alt="Hur Abbas Rana">
-                    <h3>Hur Abbas Rana</h3>
+                    <img src="Images/DEVELOPER.PNG" alt="Hur Abbas Rana">
+                    <h3>HUR ABBAS RANA</h3>
                     <p><strong>Graduate from University of Narowal in BS Computer Science</strong></p>
                     <p>A dynamic professional at the intersection of web development, global sales, and digital strategy, I bring hands-on expertise in crafting responsive, SEO-optimized websites using HTML, CSS, JavaScript, and MySQL — all backed by a strong academic foundation in Computer Science from the University of Narowal.</p>
                     <p>💡 Passionate about technology, innovation, and sustainable growth, I thrive on turning ideas into action — leading with vision, collaboration, and a commitment to excellence in every project I undertake.</p>
@@ -873,22 +899,24 @@
                     </div>
 
                     <div class="strategy-section">
-                        <h4>Leave a Review</h4>
-                        <form action="https://formspree.io/f/mpwlvnew" method="POST">
-                            <div class="form-group">
-                                <label>Your Name</label>
-                                <input type="text" name="name" required placeholder="Enter your name">
-                            </div>
-                            <div class="form-group">
-                                <label>Your Email</label>
-                                <input type="email" name="email" required placeholder="Enter your email">
-                            </div>
-                            <div class="form-group">
-                                <label>Your Review</label>
-                                <textarea name="review" rows="5" required placeholder="Share your feedback about the CGPA Calculator"></textarea>
-                            </div>
-                            <button type="submit" class="btn">Submit Review</button>
-                        </form>
+                        <h4>LEAVE A REVIEW</h4>
+                        <div class="review-box">
+                            <form action="https://formspree.io/f/mpwlvnew" method="POST">
+                                <div class="form-group">
+                                    <label>Your name</label>
+                                    <input type="text" name="name" required placeholder="Enter your name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Your email</label>
+                                    <input type="email" name="email" required placeholder="Enter your email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Your review</label>
+                                    <textarea name="review" rows="5" required placeholder="Share your feedback about the CGPA calculator"></textarea>
+                                </div>
+                                <button type="submit" class="btn">SUBMIT REVIEW</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -896,61 +924,66 @@
     </div>
 
     <script>
-        // Navigation functionality
+        // NAVIGATION FUNCTIONALITY
+        let currentPage = 'home';
         function showPage(pageId) {
             const pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active'));
             
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => btn.classList.remove('active'));
+            const navIcons = document.querySelectorAll('.nav-icon');
+            navIcons.forEach(icon => icon.classList.remove('active'));
             
             document.getElementById(pageId).classList.add('active');
+            document.querySelector(`.nav-icon[onclick="showPage('${pageId}')"]`).classList.add('active');
             
-            const clickedBtn = [...navBtns].find(btn => btn.onclick.toString().includes(pageId));
-            if (clickedBtn) clickedBtn.classList.add('active');
+            currentPage = pageId;
+            document.querySelector('.back-btn').classList.add('visible');
         }
 
-        // GPA Calculator functionality
+        // BACK BUTTON FUNCTIONALITY
+        function goBack() {
+            if (currentPage !== 'home') {
+                showPage('home');
+                document.querySelector('.back-btn').classList.remove('visible');
+            }
+        }
+
+        // GPA CALCULATOR FUNCTIONALITY
         function addCourse() {
             const container = document.getElementById('courses-container');
             const courseNumber = container.children.length + 1;
             const courseDiv = document.createElement('div');
-            courseDiv.className = 'course-input';
+            courseDiv.className = 'course-row';
             courseDiv.innerHTML = `
-                <div class="course-row">
-                    <div class="form-group">
-                        <label>Course Name</label>
-                        <span class="auto-name">Course ${courseNumber}</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Credit Hours</label>
-                        <select class="credits">
-                            <option value="">Select Credit Hours</option>
-                            <option value="1">1 Credit Hour</option>
-                            <option value="2">2 Credit Hours</option>
-                            <option value="3">3 Credit Hours</option>
-                            <option value="4">4 Credit Hours</option>
-                            <option value="5">5 Credit Hours</option>
-                            <option value="6">6 Credit Hours</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Grade</label>
-                        <select class="grade">
-                            <option value="">Select Grade</option>
-                            <option value="4.0">A+ (84.5% & Above)</option>
-                            <option value="3.7">A (79.5-84.5%)</option>
-                            <option value="3.4">B+ (74.5-79.5%)</option>
-                            <option value="3.0">B (69.5-74.5%)</option>
-                            <option value="2.5">B- (64.5-69.5%)</option>
-                            <option value="2.0">C+ (59.5-64.5%)</option>
-                            <option value="1.5">C (54.5-59.5%)</option>
-                            <option value="1.0">D (49.5-54.5%)</option>
-                            <option value="0.0">F (Below 49.5%)</option>
-                        </select>
-                    </div>
-                    <button type="button" class="remove-btn" onclick="removeCourse(this)">×</button>
+                <div class="form-group">
+                    <span class="auto-name">COURSE ${courseNumber}</span>
                 </div>
+                <div class="form-group">
+                    <select class="credits">
+                        <option value="" disabled selected>CREDIT HOURS</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="grade">
+                        <option value="" disabled selected>GRADE</option>
+                        <option value="4.0">A+</option>
+                        <option value="3.7">A</option>
+                        <option value="3.4">B+</option>
+                        <option value="3.0">B</option>
+                        <option value="2.5">B-</option>
+                        <option value="2.0">C+</option>
+                        <option value="1.5">C</option>
+                        <option value="1.0">D</option>
+                        <option value="0.0">F</option>
+                    </select>
+                </div>
+                <button type="button" class="remove-btn" onclick="removeCourse(this)">×</button>
             `;
             container.appendChild(courseDiv);
         }
@@ -958,53 +991,47 @@
         function removeCourse(btn) {
             const container = document.getElementById('courses-container');
             if (container.children.length > 1) {
-                btn.closest('.course-input').remove();
-                // Update course numbers after removal
+                btn.closest('.course-row').remove();
                 Array.from(container.children).forEach((child, index) => {
                     const nameSpan = child.querySelector('.auto-name');
-                    if (nameSpan) nameSpan.textContent = `Course ${index + 1}`;
+                    if (nameSpan) nameSpan.textContent = `COURSE ${index + 1}`;
                 });
             }
         }
 
-        // CGPA Calculator functionality
+        // CGPA CALCULATOR FUNCTIONALITY
         function addSemester() {
             const container = document.getElementById('semesters-container');
             const semesterNumber = container.children.length + 1;
             const semesterDiv = document.createElement('div');
-            semesterDiv.className = 'course-input';
+            semesterDiv.className = 'semester-row';
             semesterDiv.innerHTML = `
-                <div class="course-row">
-                    <div class="form-group">
-                        <label>Semester</label>
-                        <span class="auto-name">${getOrdinal(semesterNumber)} Semester</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Total Credit Hours</label>
-                        <select class="credits">
-                            <option value="">Select Credit Hours</option>
-                            <option value="12">12 Credit Hours</option>
-                            <option value="13">13 Credit Hours</option>
-                            <option value="14">14 Credit Hours</option>
-                            <option value="15">15 Credit Hours</option>
-                            <option value="16">16 Credit Hours</option>
-                            <option value="17">17 Credit Hours</option>
-                            <option value="18">18 Credit Hours</option>
-                            <option value="19">19 Credit Hours</option>
-                            <option value="20">20 Credit Hours</option>
-                            <option value="21">21 Credit Hours</option>
-                            <option value="22">22 Credit Hours</option>
-                            <option value="23">23 Credit Hours</option>
-                            <option value="24">24 Credit Hours</option>
-                            <option value="25">25 Credit Hours</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>GPA Obtained</label>
-                        <input type="number" class="gpa-obtained" step="0.01" min="0" max="4" placeholder="e.g., 3.50">
-                    </div>
-                    <button type="button" class="remove-btn" onclick="removeSemester(this)">×</button>
+                <div class="form-group">
+                    <span class="auto-name">SEMESTER ${semesterNumber}</span>
                 </div>
+                <div class="form-group">
+                    <select class="credits">
+                        <option value="" disabled selected>CREDIT HOURS</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="gpa-obtained" step="0.1" min="0" max="4" placeholder="GPA OBTAINED">
+                </div>
+                <button type="button" class="remove-btn" onclick="removeSemester(this)">×</button>
             `;
             container.appendChild(semesterDiv);
         }
@@ -1012,28 +1039,21 @@
         function removeSemester(btn) {
             const container = document.getElementById('semesters-container');
             if (container.children.length > 1) {
-                btn.closest('.course-input').remove();
-                // Update semester numbers after removal
+                btn.closest('.semester-row').remove();
                 Array.from(container.children).forEach((child, index) => {
                     const nameSpan = child.querySelector('.auto-name');
-                    if (nameSpan) nameSpan.textContent = `${getOrdinal(index + 1)} Semester`;
+                    if (nameSpan) nameSpan.textContent = `SEMESTER ${index + 1}`;
                 });
             }
         }
 
-        function getOrdinal(n) {
-            const s = ["th", "st", "nd", "rd"];
-            const v = n % 100;
-            return n + (s[(v - 20) % 10] || s[v] || s[0]);
-        }
-
-        // GPA Calculation
+        // GPA CALCULATION
         function calculateGPA() {
             const errorElement = document.getElementById('gpaError');
             errorElement.style.display = 'none';
             document.getElementById('gpaResult').style.display = 'none';
             
-            const courses = document.querySelectorAll('#courses-container .course-input');
+            const courses = document.querySelectorAll('#courses-container .course-row');
             let totalPoints = 0;
             let totalCredits = 0;
             let valid = true;
@@ -1060,7 +1080,7 @@
             });
             
             if (!valid || courses.length === 0) {
-                errorElement.textContent = 'Invalid data in courses. Please fill all credit hours and grades correctly.';
+                errorElement.textContent = 'INVALID DATA ENTERED. PLEASE CHECK YOUR INPUTS.';
                 errorElement.style.display = 'block';
                 return;
             }
@@ -1072,13 +1092,13 @@
             document.getElementById('gpaResult').style.display = 'block';
         }
 
-        // CGPA Calculation
+        // CGPA CALCULATION
         function calculateCGPA() {
             const errorElement = document.getElementById('cgpaError');
             errorElement.style.display = 'none';
             document.getElementById('cgpaResult').style.display = 'none';
             
-            const semesters = document.querySelectorAll('#semesters-container .course-input');
+            const semesters = document.querySelectorAll('#semesters-container .semester-row');
             let totalWeightedPoints = 0;
             let totalCredits = 0;
             let valid = true;
@@ -1105,7 +1125,7 @@
             });
             
             if (!valid || semesters.length === 0) {
-                errorElement.textContent = 'Invalid data in semesters. Please fill all fields correctly (GPA between 0.00 and 4.00).';
+                errorElement.textContent = 'INVALID DATA ENTERED. PLEASE CHECK YOUR INPUTS (GPA MUST BE BETWEEN 0.00 AND 4.00).';
                 errorElement.style.display = 'block';
                 return;
             }
@@ -1120,16 +1140,15 @@
 
         function getGradeDescription(score) {
             const gpa = parseFloat(score);
-            if (gpa >= 3.7) return "Excellent Performance - You're doing great!";
-            if (gpa >= 3.3) return "Very Good Performance - Keep up the good work!";
-            if (gpa >= 3.0) return "Good Performance - Well done!";
-            if (gpa >= 2.7) return "Above Average Performance";
-            if (gpa >= 2.3) return "Average Performance";
-            if (gpa >= 2.0) return "Below Average - Consider improving study habits";
-            if (gpa >= 1.0) return "Poor Performance - Seek academic support";
-            return "Failing - Immediate academic intervention required";
+            if (gpa >= 3.7) return "EXCELLENT PERFORMANCE - YOU'RE DOING GREAT!";
+            if (gpa >= 3.3) return "VERY GOOD PERFORMANCE - KEEP UP THE GOOD WORK!";
+            if (gpa >= 3.0) return "GOOD PERFORMANCE - WELL DONE!";
+            if (gpa >= 2.7) return "ABOVE AVERAGE PERFORMANCE";
+            if (gpa >= 2.3) return "AVERAGE PERFORMANCE";
+            if (gpa >= 2.0) return "BELOW AVERAGE - CONSIDER IMPROVING STUDY HABITS";
+            if (gpa >= 1.0) return "POOR PERFORMANCE - SEEK ACADEMIC SUPPORT";
+            return "FAILING - IMMEDIATE ACADEMIC INTERVENTION REQUIRED";
         }
     </script>
 </body>
-
 </html>
